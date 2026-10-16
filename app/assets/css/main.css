@@ -1,0 +1,154 @@
+/* ---------------------------------------------------------------
+   ui-layer theme palette  —  rev 2, keyed to the new logo
+   Tailwind 4 + Nuxt UI
+
+   Logo anchors:
+     #0854A0  blue        -> between brand-700 and brand-800
+     #0B3555  navy        -> between brand-900 and brand-950
+     #FBD619  yellow      -> gold-300 (#fcd431)
+     #95C4DB  pale blue   -> nearest is info-300 (#8fcae7)
+
+   Built in OKLCH. Every scale copies the *lightness* of a Tailwind 4
+   reference ramp exactly, so Nuxt UI's shade logic behaves the same as
+   it does with stock Tailwind colors. Only hue and chroma are ours.
+
+     brand    -> Tailwind `blue`    lightness, hue 256 -> 247
+     gold     -> Tailwind `amber`   lightness, hue  97 ->  68
+     ink      -> Tailwind `slate`   lightness, hue 250 -> 256
+     success  -> Tailwind `emerald` lightness
+     warning  -> Tailwind `orange`  lightness
+     error    -> Tailwind `red`     lightness
+   --------------------------------------------------------------- */
+
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  /* primary */
+  --color-brand-50: #f0f6fe;
+  --color-brand-100: #dceafd;
+  --color-brand-200: #c1dbfc;
+  --color-brand-300: #96c4fe;
+  --color-brand-400: #57a3fc;
+  --color-brand-500: #0486f9;
+  --color-brand-600: #006fd2;
+  --color-brand-700: #0060b2;
+  --color-brand-800: #004f90;
+  --color-brand-900: #004476;
+  --color-brand-950: #002b4c;
+
+  /* secondary - accent, use sparingly */
+  --color-gold-50: #fffbeb;
+  --color-gold-100: #fef3c6;
+  --color-gold-200: #ffe585;
+  --color-gold-300: #fcd431;
+  --color-gold-400: #eec200;
+  --color-gold-500: #dcad00;
+  --color-gold-600: #bb8b00;
+  --color-gold-700: #986900;
+  --color-gold-800: #7d5100;
+  --color-gold-900: #694200;
+  --color-gold-950: #3c2200;
+
+  /* neutral - text and surfaces */
+  --color-ink-50: #f8fafc;
+  --color-ink-100: #f1f5f9;
+  --color-ink-200: #e2e8f0;
+  --color-ink-300: #cbd5e1;
+  --color-ink-400: #92a1b4;
+  --color-ink-500: #657487;
+  --color-ink-600: #475667;
+  --color-ink-700: #324155;
+  --color-ink-800: #1a293d;
+  --color-ink-900: #09182c;
+  --color-ink-950: #000717;
+
+  --color-success-50: #edfdf3;
+  --color-success-100: #d1fae3;
+  --color-success-200: #a7f3cc;
+  --color-success-300: #65e9b0;
+  --color-success-400: #00d294;
+  --color-success-500: #00b984;
+  --color-success-600: #00966c;
+  --color-success-700: #007857;
+  --color-success-800: #005f45;
+  --color-success-900: #014e39;
+  --color-success-950: #022c20;
+
+  --color-warning-50: #fff7f0;
+  --color-warning-100: #ffecdd;
+  --color-warning-200: #ffd5b6;
+  --color-warning-300: #ffb885;
+  --color-warning-400: #ff8b2c;
+  --color-warning-500: #f47800;
+  --color-warning-600: #dc6700;
+  --color-warning-700: #b65000;
+  --color-warning-800: #943c00;
+  --color-warning-900: #7c2e00;
+  --color-warning-950: #431401;
+
+  --color-error-50: #fef2f2;
+  --color-error-100: #ffe2e1;
+  --color-error-200: #ffcac7;
+  --color-error-300: #ffa4a0;
+  --color-error-400: #ff6666;
+  --color-error-500: #fb2b3c;
+  --color-error-600: #e30026;
+  --color-error-700: #be001b;
+  --color-error-800: #9f0714;
+  --color-error-900: #821816;
+  --color-error-950: #460807;
+}
+
+/* ---------------------------------------------------------------
+   Accessibility overrides.
+
+   Nuxt UI defaults to shade 500 in light mode / 400 in dark mode.
+   White on brand-500 is 3.63:1, which fails AA for body-size text on
+   a solid button. Shifting light mode to 600 gets 4.99:1. Success
+   needs 700 (5.49:1) — its 600 is only 3.76:1.
+   --------------------------------------------------------------- */
+
+:root {
+  --ui-primary: var(--color-brand-600);
+  --ui-secondary: var(--color-gold-700);
+  --ui-success: var(--color-success-700);
+  --ui-warning: var(--color-warning-700);
+  --ui-error: var(--color-error-600);
+}
+
+.dark {
+  --ui-primary: var(--color-brand-400);
+  --ui-secondary: var(--color-gold-400);
+  --ui-success: var(--color-success-400);
+  --ui-warning: var(--color-warning-400);
+  --ui-error: var(--color-error-400);
+}
+
+/* ---------------------------------------------------------------
+   Gold takes dark text, never white.
+     ink-950 on gold-300  14.00:1
+     ink-950 on gold-400  11.85:1
+   For gold *text* on a light background use gold-700 or darker
+   (gold-700 on gold-50 is 4.65:1).
+   --------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------
+   Optional: cooler alternative to `gold` for secondary, if the
+   blue/yellow pairing reads too strongly. Same lightness ramp.
+   --------------------------------------------------------------- */
+/*
+@theme static {
+  --color-gold-50: #ebfcfc;
+  --color-gold-100: #cdf8f9;
+  --color-gold-200: #9ff0f2;
+  --color-gold-300: #54e4e9;
+  --color-gold-400: #00cbd2;
+  --color-gold-500: #00b3ba;
+  --color-gold-600: #009198;
+  --color-gold-700: #00747a;
+  --color-gold-800: #005c62;
+  --color-gold-900: #004c51;
+  --color-gold-950: #022a2e;
+}
+*/
